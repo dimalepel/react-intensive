@@ -1,0 +1,13 @@
+.post-card {
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+    padding: 1.25rem;
+}
+
+.post-card:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.post-card__title {
+    margin-top: 0;
+}

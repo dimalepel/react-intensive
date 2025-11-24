@@ -1,0 +1,27 @@
+.header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgba(8, 126, 164, .1);
+}
+
+.header__title {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header__logo {
+    max-width: 3rem;
+    margin-right: 1rem;
+}
+
+.header__navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+    font-size: 1.2rem;
+}
