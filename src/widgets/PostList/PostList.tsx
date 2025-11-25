@@ -53,7 +53,9 @@ export default function PostList() {
         }
     ]
 
-    return (<ul className={styles['post-list']}>
-        {posts.map((post) => (<PostCard title={ post.title } content={ post.body } key={ post.id }/>))}
-        </ul>)
+    return (
+        <ul className={styles['post-list']}>
+            {posts.map((post) => (<PostCard title={ post.title } content={ post.body } key={ post.id }/>))}
+        </ul>
+    )
 }
