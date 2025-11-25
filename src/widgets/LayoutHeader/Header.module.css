@@ -4,6 +4,11 @@
     background-color: rgba(8, 126, 164, .1);
 }
 
+:global(.dark) .header {
+    color: #ffffff;
+    background-color: rgba(8, 126, 164, .2);
+}
+
 .header__title {
     display: flex;
     align-items: center;
