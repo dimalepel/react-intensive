@@ -4,6 +4,10 @@
     padding: 1.25rem;
 }
 
+:global(.dark) .post-card {
+    color: #ffffff;
+}
+
 .post-card:not(:last-child) {
     margin-bottom: 1rem;
 }

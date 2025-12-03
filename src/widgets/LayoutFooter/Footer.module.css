@@ -4,6 +4,11 @@
     background-color: rgba(8, 126, 164);
 }
 
+:global(.dark) .footer {
+    color: #ffffff;
+    background-color: rgba(8, 126, 164, .2);
+}
+
 .footer__text {
     margin-top: 0;
     margin-bottom: 0;
@@ -12,4 +17,5 @@
 
 .footer__link {
     margin-left: auto;
+    margin-right: 1rem;
 }
