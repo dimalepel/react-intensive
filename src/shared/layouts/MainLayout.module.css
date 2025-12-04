@@ -1,8 +1,14 @@
 .main {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
 }
 
 .main__container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
     max-width: 56rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
