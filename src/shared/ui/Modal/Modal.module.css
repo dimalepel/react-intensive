@@ -63,6 +63,20 @@
     overflow: auto;
 }
 
+.modal__footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    max-height: 70vh;
+    overflow: auto;
+    border-top: 1px solid #eee;
+}
+
+.modal__footer * {
+    margin: 0;
+}
+
 :global(.dark) .modal {
     background-color: #0f1720;
     color: #e6eef8;
