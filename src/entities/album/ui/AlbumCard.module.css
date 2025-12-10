@@ -1,0 +1,16 @@
+.album-card {
+    width: calc((100% / 3) - (1rem * 2)/3);
+}
+
+.album-card__thumb-wrapper {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(8, 126, 164, .1);
+}
+
+.album-card__thumb {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}

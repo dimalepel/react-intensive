@@ -4,6 +4,11 @@
     background-color: rgba(8, 126, 164);
 }
 
+.footer__container {
+    width: 100%;
+    justify-content: space-between;
+}
+
 :global(.dark) .footer {
     color: #ffffff;
     background-color: rgba(8, 126, 164, .2);
@@ -13,6 +18,10 @@
     margin-top: 0;
     margin-bottom: 0;
     font-size: 1.2rem;
+}
+
+.footer__links {
+    display: flex;
 }
 
 .footer__link {

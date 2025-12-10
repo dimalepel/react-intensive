@@ -1,0 +1,13 @@
+.user-tabs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user-tabs a:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.active {
+    font-weight: 700;
+    text-decoration: none;
+}

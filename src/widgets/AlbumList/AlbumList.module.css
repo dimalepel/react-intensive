@@ -1,0 +1,7 @@
+.album-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-left: 0;
+    list-style: none;
+}
