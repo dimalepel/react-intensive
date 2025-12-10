@@ -2,17 +2,38 @@ import styles from './Footer.module.css'
 import Button from "../../shared/ui/Button/Button.tsx";
 import {createPortal} from "react-dom";
 import Modal from "../../shared/ui/Modal/Modal.tsx";
-import {useState} from "react";
+import React, {useState} from "react";
 
 export default function Footer() {
     const [showModal, setShowModal] = useState(false);
 
+    const linksList = [
+        {
+            label: 'React Documentation',
+            url: 'https://react.dev/'
+        },
+        {
+            label: 'Api Documentation',
+            url: 'https://jsonplaceholder.typicode.com/guide/'
+        },
+        {
+            label: 'Github Repo',
+            url: 'https://github.com/dimalepel/react-intensive'
+        }
+    ];
+
     return (
         <>
             <footer className={styles.footer}>
-                <div className={'container'}>
+                <div className={`${styles.footer__container} container`}>
                     <p className={styles.footer__text}>&copy; Copyright 2025</p>
-                    <a className={styles.footer__link} href="https://github.com/dimalepel/react-intensive" target={'_blank'}>Github Repo</a>
+                    <div className={styles.footer__links}>
+                        {linksList.map((link, index) => (
+                            <React.Fragment key={index}>
+                                <a className={styles.footer__link} href={ link.url } target={'_blank'}>{ link.label }</a>
+                            </React.Fragment>
+                        ))}
+                    </div>
                     <Button onClick={() => setShowModal(true)}>
                         О проекте
                     </Button>
