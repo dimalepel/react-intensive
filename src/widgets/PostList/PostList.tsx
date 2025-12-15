@@ -11,6 +11,7 @@ export default function PostList({ posts }: PostListProps) {
     const postCards = useMemo(() => {
         return posts.map(post => (
             <PostCard
+                id={post.id}
                 title={post.title}
                 content={post.body}
                 comments={post.comments}

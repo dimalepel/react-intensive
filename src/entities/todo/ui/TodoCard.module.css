@@ -1,0 +1,14 @@
+.todo-list__item:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.todo-list__label {
+    display: flex;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #cccccc;
+}
+
+.todo-list__input {
+    margin-right: 0.5rem;
+}
