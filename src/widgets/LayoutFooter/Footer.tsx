@@ -1,26 +1,25 @@
 import styles from './Footer.module.css'
 import Button from "../../shared/ui/Button/Button.tsx";
-import {createPortal} from "react-dom";
 import Modal from "../../shared/ui/Modal/Modal.tsx";
 import React, {useState} from "react";
 
+const linksList = [
+    {
+        label: 'React Documentation',
+        url: 'https://react.dev/'
+    },
+    {
+        label: 'Api Documentation',
+        url: 'https://jsonplaceholder.typicode.com/guide/'
+    },
+    {
+        label: 'Github Repo',
+        url: 'https://github.com/dimalepel/react-intensive'
+    }
+];
+
 export default function Footer() {
     const [showModal, setShowModal] = useState(false);
-
-    const linksList = [
-        {
-            label: 'React Documentation',
-            url: 'https://react.dev/'
-        },
-        {
-            label: 'Api Documentation',
-            url: 'https://jsonplaceholder.typicode.com/guide/'
-        },
-        {
-            label: 'Github Repo',
-            url: 'https://github.com/dimalepel/react-intensive'
-        }
-    ];
 
     return (
         <>
@@ -40,7 +39,7 @@ export default function Footer() {
                 </div>
             </footer>
 
-            {showModal && createPortal(
+            {showModal && (
                 <Modal>
                     <Modal.Header>
                         О проекте
@@ -68,8 +67,7 @@ export default function Footer() {
                         <h3>Преподаватель курса</h3>
                         <p><strong>Мохирев Александр</strong><br/>React Developer</p>
                     </Modal.Footer>
-                </Modal>,
-                document.body
+                </Modal>
             )}
         </>
     )
