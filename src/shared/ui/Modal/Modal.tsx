@@ -1,6 +1,7 @@
 import styles from './Modal.module.css'
 import type {ReactNode} from "react";
 import Button from "../Button/Button.tsx";
+import {createPortal} from "react-dom";
 
 interface ModalProps {
     children: ReactNode
@@ -11,21 +12,24 @@ interface ModalCloseButtonProps {
 }
 
 function Modal({children}: ModalProps) {
-    return (
+    const modalRoot = document.getElementById('modal-root');
+    if (!modalRoot) return null;
+
+    return createPortal(
         <div className={styles.backdrop}>
             <div className={styles.modal}>
                 {children}
             </div>
-        </div>
-
+        </div>,
+        modalRoot
     )
 }
 
 function ModalHeader({children} : ModalProps) {
     return (
-        <div className={styles.modal__header}>
+        <header className={styles.modal__header}>
             {children}
-        </div>
+        </header>
     )
 }
 
@@ -47,7 +51,7 @@ function ModalCloseButton({onClose} : ModalCloseButtonProps) {
 
 function ModalBody({children} : ModalProps) {
     return (
-        <div className={styles.modal__body}>{children}</div>
+        <main className={styles.modal__body}>{children}</main>
     )
 }
 

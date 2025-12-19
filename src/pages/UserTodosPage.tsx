@@ -1,14 +1,13 @@
 import { useParams } from "react-router-dom"
-import type { TodoDTO } from "../entities/todo/model/Todo";
 import TodoList from "../widgets/TodoList/TodoList";
-import {useFetch} from "../features/PostList/model/hooks/useFetch.ts";
 import Loader from "../shared/ui/Loader/Loader.tsx";
+import {useGetTodosByUserIdQuery} from "../entities/todo/api/todoApi.ts";
 
 export default function UserTodosPage() {
-    const { id } = useParams<{id: string}>()
-    const { data: todos, isLoading, error } = useFetch<TodoDTO[]>(`https://jsonplaceholder.typicode.com/users/${id}/todos`)
+    const { id: userId } = useParams<{id: string}>()
+    const { data: todos, isLoading, isError } = useGetTodosByUserIdQuery(String(userId))
 
-    if (error) {
+    if (isError) {
         return <>
             <h1>ToDo list</h1>
             <p>Something went wrong =(</p>

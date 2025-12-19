@@ -1,9 +1,21 @@
 import type { Comment } from '../model/Comment.ts';
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQuery} from "../../../shared/api/api.ts";
 
-export async function fetchComments(): Promise<Comment[]> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/comments`);
+export const commentsApi = createApi({
+    reducerPath: 'commentsApi',
+    baseQuery,
+    tagTypes: ['Comment'],
+    endpoints: (builder) => ({
+        // Получение комментариев по Id поста
+        getCommentsByPostId: builder.query<Comment[], string>({
+            query: (postId: string)=> {
+                if (!postId) throw new Error('postId обязателен');
 
-    if (!res.ok) throw new Error('Ошибка сети');
+                return `posts/${postId}/comments`;
+            }
+        })
+    })
+})
 
-    return res.json();
-}
+export const { useGetCommentsByPostIdQuery } = commentsApi
