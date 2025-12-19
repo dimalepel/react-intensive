@@ -1,16 +1,17 @@
 import styles from './PostCard.module.css'
 import CommentList from "../../../widgets/CommentList/ui/CommentList.tsx";
-import type { Comment } from '../../comment/model/Comment.ts';
 import {Link} from "react-router-dom";
+import {useGetCommentsByPostIdQuery} from "../../comment/api/commentsApi.ts";
 
 interface PostCardProps {
     id: number,
     title: string,
     content: string,
-    comments: Comment[]
 }
 
-export default function PostCard({ id, title, content, comments } : PostCardProps) {
+export default function PostCard({ id, title, content } : PostCardProps) {
+    const { data: comments = [] } = useGetCommentsByPostIdQuery(String(id))
+
     return (
         <li className={styles['post-card']}>
             <h2 className={styles['post-card__title']}>

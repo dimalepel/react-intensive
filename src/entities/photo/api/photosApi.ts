@@ -1,11 +1,21 @@
 import type { PhotoDTO } from "../model/Photo";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQuery} from "../../../shared/api/api.ts";
 
-// Получение всех фото по Id альбому
-export async function fetchPhotosByAlbumId(albumId: string | undefined): Promise<PhotoDTO[]> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`);
-    console.log(res)
+export const photosApi = createApi({
+    reducerPath: 'photosApi',
+    baseQuery,
+    tagTypes: ['Photo'],
+    endpoints: (builder) => ({
+        // Получение всех фото по Id альбому
+        getPhotosByAlbumId: builder.query<PhotoDTO[], string>({
+            query: (albumId: string) => {
+                if (!albumId) throw new Error('albumId обязателен');
 
-    if (!res.ok) throw new Error('Ошибка сети');
+                return `albums/${albumId}/photos`;
+            }
+        })
+    })
+})
 
-    return res.json();
-}
+export const { useGetPhotosByAlbumIdQuery } = photosApi

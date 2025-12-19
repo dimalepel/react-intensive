@@ -1,49 +1,37 @@
-import { fetchComments } from '../../comment/api/commentsApi.ts';
-import type { PostDTO } from '../model/Post.ts';
-import type { Comment } from '../../comment/model/Comment.ts';
+import {createApi} from "@reduxjs/toolkit/query/react";
+import type {PostDTO} from "../model/Post.ts";
+import {baseQuery} from "../../../shared/api/api.ts";
 
-// Получение всех постов
-export async function fetchPosts(limit = 20): Promise<PostDTO[]> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}`);
+export const postsApi = createApi({
+    reducerPath: 'postsApi',
+    baseQuery,
+    tagTypes: ['Post'],
+    endpoints: (builder) => ({
+        // Получение всех постов
+        getAllPosts: builder.query<PostDTO[], number | undefined>({
+            query: (limit = 20) => `posts?_limit=${limit}`,
+            providesTags: (result) => result
+                ? [
+                    ...result.map(({ id }) => ({ type: 'Post' as const, id })),
+                    { type: 'Post', id: 'LIST' }
+                ]
+                : [{ type: 'Post', id: 'LIST' }]
+        }),
+        // Получение постов по Id пользователя
+        getPostsByUserId: builder.query<PostDTO[], number>({
+            query: (userId: number) => {
+                if (!userId) throw new Error('userId обязателен');
 
-    if (!res.ok) throw new Error('Ошибка сети');
+                return `users/${userId}/posts`;
+            },
+            providesTags: (result) => result
+                ? result.map(({ id }) => ({ type: 'Post' as const, id}))
+                : []
+        }),
+    }),
+})
 
-    return res.json();
-}
-
-// Получение деталей поста по Id поста
-export async function fetchPostById(postId: string | undefined): Promise<PostDTO> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-
-    if (!res.ok) throw new Error('Ошибка сети');
-
-    return res.json();
-}
-
-// Получение постов по Id пользователя
-export async function fetchPostsByUserId(userId: string | undefined): Promise<PostDTO[]> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`);
-
-    if (!res.ok) throw new Error('Ошибка сети');
-
-    return res.json();
-}
-
-// Получение всех постов с комментариями
-export async function fetchPostsWithComments(limit = 20): Promise<(PostDTO & { comments: Comment[] })[]> {
-    const [postsData, commentsData] = await Promise.all([
-        fetchPosts(limit),
-        fetchComments()
-    ]);
-
-    const commentsByPostId = commentsData.reduce((acc, comment) => {
-        if (!acc[comment.postId]) acc[comment.postId] = [];
-        acc[comment.postId].push(comment);
-        return acc;
-    }, {} as Record<number, Comment[]>);
-
-    return postsData.map(post => ({
-        ...post,
-        comments: commentsByPostId[post.id] || []
-    }));
-}
+export const {
+    useGetAllPostsQuery,
+    useGetPostsByUserIdQuery
+} = postsApi

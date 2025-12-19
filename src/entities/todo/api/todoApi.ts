@@ -1,10 +1,21 @@
 import type { TodoDTO } from "../model/Todo";
+import {createApi} from "@reduxjs/toolkit/query/react";
+import {baseQuery} from "../../../shared/api/api.ts";
 
-// Получение todo по Id пользователя
-export async function fetchTodosByUserId(userId: string | undefined): Promise<TodoDTO[]> {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`);
+export const todosApi = createApi({
+    reducerPath: 'todosApi',
+    baseQuery,
+    tagTypes: ['Todo'],
+    endpoints: (builder) => ({
+        // Получение todo по Id пользователя
+        getTodosByUserId: builder.query<TodoDTO[], string>({
+            query: (userId: string) => {
+                if (!userId) throw new Error('userId обязателен');
 
-    if (!res.ok) throw new Error('Ошибка сети');
+                return `users/${userId}/todos`;
+            }
+        })
+    })
+})
 
-    return res.json();
-}
+export const { useGetTodosByUserIdQuery } = todosApi

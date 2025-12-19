@@ -1,17 +1,20 @@
 import CommentList from "../../../widgets/CommentList/ui/CommentList.tsx";
-import type {Post} from "../model/Post.ts";
+import type {PostDTO} from "../model/Post.ts";
+import {useGetCommentsByPostIdQuery} from "../../comment/api/commentsApi.ts";
 
 interface PostDetailProps {
-    post: Post | null
+    post: PostDTO | null
 }
 
 export default function PostDetail({ post }: PostDetailProps) {
+    const { data: comments = [] } = useGetCommentsByPostIdQuery(String(post?.id))
+
     return (
         <>
             <h1>{post?.title}</h1>
             <p>{post?.body}</p>
 
-            <CommentList comments={post?.comments ?? []} />
+            <CommentList comments={comments} />
         </>
     )
 }
