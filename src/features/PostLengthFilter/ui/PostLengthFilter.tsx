@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import styles from './PostLengthFilter.module.css'
 
-interface PostLengthFilterProps {
+type PostLengthFilterProps = {
     onChange: (min: number, max: number) => void;
 }
 

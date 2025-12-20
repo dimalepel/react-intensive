@@ -1,5 +1,5 @@
 import CommentList from "../../../widgets/CommentList/ui/CommentList.tsx";
-import type {PostDTO} from "../model/Post.ts";
+import type {PostDTO} from "../model/types.ts";
 import {useGetCommentsByPostIdQuery} from "../../comment/api/commentsApi.ts";
 
 interface PostDetailProps {

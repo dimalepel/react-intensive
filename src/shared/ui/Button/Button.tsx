@@ -1,9 +1,8 @@
 import styles from './Button.module.css'
-import type {ReactNode} from "react";
+import type {MouseEventHandler, PropsWithChildren} from "react";
 
-interface ButtonProps {
-    onClick: () => void,
-    children: ReactNode,
+interface ButtonProps extends PropsWithChildren {
+    onClick: MouseEventHandler<HTMLButtonElement>,
     className?: string
 }
 

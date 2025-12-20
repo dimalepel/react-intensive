@@ -1,7 +1,7 @@
 import type {ComponentType} from "react";
 import Loader from "../../ui/Loader/Loader.tsx";
 
-interface WithLoadingProps {
+type WithLoadingProps = {
     isLoading: boolean;
 }
 

@@ -1,11 +1,12 @@
 import { useState, useCallback } from "react";
-import type { Comment } from '../../../entities/comment/model/Comment.ts';
+import type { CommentDTO } from '../../../entities/comment/model/types.ts';
 import styles from './CommentList.module.css'
 import Button from "../../../shared/ui/Button/Button.tsx";
 import CommentCard from "../../../entities/comment/ui/CommentCard.tsx";
+import ItemList from "../../../shared/ui/ItemList/ItemList.tsx";
 
 interface CommentListProps {
-    comments: Comment[];
+    comments: CommentDTO[];
 }
 
 export default function CommentList({ comments }: CommentListProps) {
@@ -22,11 +23,14 @@ export default function CommentList({ comments }: CommentListProps) {
             </Button>
 
             {isOpen && (
-                <div className={styles.comments}>
-                    {comments.map((comment) => (
-                        <CommentCard comment={comment} key={comment.id}/>
-                    ))}
-                </div>
+                <ItemList
+                    items={comments}
+                    getKey={comment => comment.id}
+                    className={styles.comments}
+                    renderItem={comment => (
+                        <CommentCard comment={comment} />
+                    )}
+                />
             )}
         </div>
     );

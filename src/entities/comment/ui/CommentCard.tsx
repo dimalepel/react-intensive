@@ -1,8 +1,8 @@
-import type {Comment} from "../model/Comment.ts";
+import type {CommentDTO} from "../model/types.ts";
 import styles from './CommentCard.module.css'
 
 interface CommentCardProps {
-    comment: Comment
+    comment: CommentDTO
 }
 
 export default function CommentCard({ comment }: CommentCardProps) {

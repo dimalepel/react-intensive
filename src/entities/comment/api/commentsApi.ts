@@ -1,4 +1,4 @@
-import type { Comment } from '../model/Comment.ts';
+import type { CommentDTO } from '../model/types.ts';
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {baseQuery} from "../../../shared/api/api.ts";
 
@@ -8,7 +8,7 @@ export const commentsApi = createApi({
     tagTypes: ['Comment'],
     endpoints: (builder) => ({
         // Получение комментариев по Id поста
-        getCommentsByPostId: builder.query<Comment[], string>({
+        getCommentsByPostId: builder.query<CommentDTO[], string>({
             query: (postId: string)=> {
                 if (!postId) throw new Error('postId обязателен');
 

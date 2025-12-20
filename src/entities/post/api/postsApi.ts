@@ -1,5 +1,5 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import type {PostDTO} from "../model/Post.ts";
+import type {PostDTO} from "../model/types.ts";
 import {baseQuery} from "../../../shared/api/api.ts";
 
 export const postsApi = createApi({

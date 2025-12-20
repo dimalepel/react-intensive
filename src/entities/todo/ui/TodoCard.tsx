@@ -1,4 +1,4 @@
-import type { TodoDTO } from "../model/Todo";
+import type { TodoDTO } from "../model/types.ts";
 import styles from './TodoCard.module.css'
 import {useCallback, useEffect, useRef, useState} from "react";
 
