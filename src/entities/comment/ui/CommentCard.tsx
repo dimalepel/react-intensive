@@ -1,11 +1,12 @@
 import type {CommentDTO} from "../model/types.ts";
 import styles from './CommentCard.module.css'
+import {memo} from "react";
 
 interface CommentCardProps {
     comment: CommentDTO
 }
 
-export default function CommentCard({ comment }: CommentCardProps) {
+const CommentCard = memo(function CommentCard({ comment }: CommentCardProps) {
     return (
         <div className={styles['comment-item']} key={comment.id}>
             <svg className={styles['comment-item__author']} width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,4 +18,6 @@ export default function CommentCard({ comment }: CommentCardProps) {
             </div>
         </div>
     )
-}
+})
+
+export default CommentCard;

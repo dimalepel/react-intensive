@@ -3,12 +3,13 @@ import CommentList from "../../../widgets/CommentList/ui/CommentList.tsx";
 import {Link} from "react-router-dom";
 import {useGetCommentsByPostIdQuery} from "../../comment/api/commentsApi.ts";
 import type {PostDTO} from "../model/types.ts";
+import {memo} from "react";
 
 interface PostCardProps {
     post: PostDTO
 }
 
-export default function PostCard({ post } : PostCardProps) {
+const PostCard = memo(function PostCard({ post } : PostCardProps) {
     const { data: comments = [] } = useGetCommentsByPostIdQuery(String(post.id))
 
     return (
@@ -20,4 +21,6 @@ export default function PostCard({ post } : PostCardProps) {
             <CommentList comments={comments}/>
         </li>
     )
-}
+})
+
+export default PostCard;

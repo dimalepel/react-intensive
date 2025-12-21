@@ -1,4 +1,4 @@
-import React, {Fragment, useMemo} from "react";
+import React, {Fragment} from "react";
 
 type ItemListProps<T> = {
     items: T[];
@@ -10,17 +10,13 @@ type ItemListProps<T> = {
 export default function ItemList<T>(props: ItemListProps<T>) {
     const { items, renderItem, getKey, className } = props;
 
-    const renderedItems = useMemo(() => {
-        return items.map(item => (
-            <Fragment key={getKey(item)}>
-                {renderItem(item)}
-            </Fragment>
-        ));
-    }, [items, renderItem, getKey]);
-
     return (
         <ul className={`${className ?? ""}`}>
-            {renderedItems}
+            {items.map(item => (
+                <Fragment key={getKey(item)}>
+                    {renderItem(item)}
+                </Fragment>
+            ))}
         </ul>
     );
 }

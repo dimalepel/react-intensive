@@ -1,5 +1,6 @@
 import styles from './PhotoCard.module.css'
 import type {PhotoDTO} from "../model/types.ts";
+import {memo} from "react";
 
 function getSizeFromUrl(url: string) {
     const match = url.match(/\/(\d+)(?:\/|$)/);
@@ -29,7 +30,7 @@ type PhotoCardProps = {
     photo: PhotoDTO
 }
 
-export default function PhotoCard({ photo }: PhotoCardProps) {
+const PhotoCard = memo(function PhotoCard({ photo }: PhotoCardProps) {
     const thumbnailUrlSize = getSizeFromUrl(photo.thumbnailUrl)
     const color = getColorFromUrl(photo.thumbnailUrl)
     const imageUrl = `https://dummyimage.com/${thumbnailUrlSize}x${thumbnailUrlSize}/${color}`
@@ -39,4 +40,6 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
             <img loading="lazy" className={styles['photo-list__item']} src={imageUrl} alt={photo.title} />
         </li>
     )
-}
+})
+
+export default PhotoCard;
