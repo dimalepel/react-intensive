@@ -1,4 +1,4 @@
-import type { PostDTO } from "../../../entities/post/model/Post.ts";
+import type { PostDTO } from "../../../entities/post/model/types.ts";
 
 export function filterByLength(posts: PostDTO[], min: number, max: number) {
     return posts.filter(post => {

@@ -1,4 +1,4 @@
-import type { TodoDTO } from "../model/Todo";
+import type { TodoDTO } from "../model/types.ts";
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {baseQuery} from "../../../shared/api/api.ts";
 

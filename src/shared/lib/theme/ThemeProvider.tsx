@@ -1,12 +1,8 @@
-import { useState, useMemo, useEffect } from 'react';
+import {useState, useMemo, useEffect, type PropsWithChildren} from 'react';
 import { ThemeContext } from './ThemeContext';
 import type { Theme } from './ThemeContext';
 
-interface ThemeProviderProps {
-    children: React.ReactNode;
-}
-
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
     const [theme, setTheme] = useState<Theme>('light');
 
     useEffect(() => {

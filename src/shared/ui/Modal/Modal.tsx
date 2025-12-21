@@ -1,17 +1,13 @@
 import styles from './Modal.module.css'
-import type {ReactNode} from "react";
+import type {MouseEventHandler, PropsWithChildren} from "react";
 import Button from "../Button/Button.tsx";
 import {createPortal} from "react-dom";
 
-interface ModalProps {
-    children: ReactNode
-}
-
 interface ModalCloseButtonProps {
-    onClose: () => void;
+    onClose: MouseEventHandler<HTMLButtonElement>;
 }
 
-function Modal({children}: ModalProps) {
+function Modal({children}: PropsWithChildren) {
     const modalRoot = document.getElementById('modal-root');
     if (!modalRoot) return null;
 
@@ -25,7 +21,7 @@ function Modal({children}: ModalProps) {
     )
 }
 
-function ModalHeader({children} : ModalProps) {
+function ModalHeader({children} : PropsWithChildren) {
     return (
         <header className={styles.modal__header}>
             {children}
@@ -33,7 +29,7 @@ function ModalHeader({children} : ModalProps) {
     )
 }
 
-function ModalTitle({children} : ModalProps) {
+function ModalTitle({children} : PropsWithChildren) {
     return (
         <h3 className={styles.modal__title}>
             {children}
@@ -49,13 +45,13 @@ function ModalCloseButton({onClose} : ModalCloseButtonProps) {
     )
 }
 
-function ModalBody({children} : ModalProps) {
+function ModalBody({children} : PropsWithChildren) {
     return (
         <main className={styles.modal__body}>{children}</main>
     )
 }
 
-function ModalFooter({children} : ModalProps) {
+function ModalFooter({children} : PropsWithChildren) {
     return (
         <div className={styles.modal__footer}>{children}</div>
     )

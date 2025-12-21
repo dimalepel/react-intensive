@@ -1,5 +1,5 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, type PayloadAction} from '@reduxjs/toolkit'
-import type { PostDTO } from '../Post'
+import type { PostDTO } from '../types.ts'
 import type { RootState } from '../../../../app/providers/store/store';
 import {BASE_URL} from "../../../../shared/api/baseUrl.ts";
 

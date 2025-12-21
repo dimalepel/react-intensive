@@ -1,22 +1,21 @@
-import type { AlbumDTO } from "../../entities/album/model/Album";
+import type { AlbumDTO } from "../../entities/album/model/types.ts";
 import AlbumCard from "../../entities/album/ui/AlbumCard.tsx"
-import {useMemo} from "react";
 import styles from './AlbumList.module.css'
+import ItemList from "../../shared/ui/ItemList/ItemList.tsx";
 
 interface AlbumListProps {
     albums: AlbumDTO[]
 }
 
 export default function AlbumList({ albums }: AlbumListProps) {
-    const albumCard = useMemo(() => {
-        return albums.map(album => (
-            <AlbumCard id={album.id} title={album.title} key={album.id}/>
-        ))
-    }, [albums])
-
     return (
-        <ul className={styles['album-list']}>
-            { albumCard }
-        </ul>
-    )
+        <ItemList
+            items={albums}
+            getKey={album => album.id}
+            className={styles["album-list"]}
+            renderItem={album => (
+                <AlbumCard album={album} />
+            )}
+        />
+    );
 }
