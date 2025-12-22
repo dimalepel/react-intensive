@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import type { PhotoDTO } from "../entities/photo/model/Photo";
 import PhotoList from "../widgets/PhotoList/PhotoList";
-import {useFetch} from "../features/PostList/model/hooks/useFetch.ts";
+import {useFetch} from "../shared/api/useFetch.ts";
 import Loader from "../shared/ui/Loader/Loader.tsx";
 
 export default function AlbumPhotosPage() {

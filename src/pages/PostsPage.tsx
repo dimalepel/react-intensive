@@ -2,26 +2,24 @@ import PostLengthFilter from "../features/PostLengthFilter/ui/PostLengthFilter.t
 import withLoading from "../shared/lib/hoc/withLoading.tsx";
 import PostList from "../widgets/PostList/PostList.tsx";
 import {useCallback, useEffect, useState} from "react";
-import type {Post} from "../entities/post/model/Post.ts";
+import type {Post, PostDTO} from "../entities/post/model/Post.ts";
 import type { Comment } from '../entities/comment/model/Comment.ts';
-import {fetchPosts} from "../entities/post/api/postsApi.ts";
 import {fetchComments} from "../entities/comment/api/commentsApi.ts";
 import {filterByLength} from "../features/PostLengthFilter/lib/filterByLength.ts";
+import {usePosts} from "../features/PostList/model/hooks/usePosts.ts";
 
 const PostListWithLoading = withLoading(PostList);
 
 export default function PostsPage() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const { data: postsData } = usePosts<PostDTO[]>(`https://jsonplaceholder.typicode.com/posts?_limit=8`)
+    const [isLoadingAll, setIsLoadingAll] = useState(true);
     const [filtered, setFiltered] = useState<Post[]>([]);
 
     useEffect(() => {
         async function fetchPostsAndComments() {
             try {
-                const [postsData, commentsData] = await Promise.all([
-                    fetchPosts(8),
-                    fetchComments()
-                ]);
+                const commentsData = await fetchComments();
 
                 const commentsByPostId = commentsData.reduce((acc, comment) => {
                     if (!acc[comment.postId]) {
@@ -31,22 +29,22 @@ export default function PostsPage() {
                     return acc;
                 }, {} as Record<number, Comment[]>);
 
-                const postsWithComments = postsData.map(post => ({
+                const postsWithComments = postsData?.map(post => ({
                     ...post,
                     comments: commentsByPostId[post.id] || []
                 }));
 
-                setPosts(postsWithComments);
-                setFiltered(postsWithComments);
+                setPosts(postsWithComments ?? []);
+                setFiltered(postsWithComments ?? []);
             } catch (error) {
                 console.error("Ошибка при загрузке данных:", error);
             } finally {
-                setIsLoading(false);
+                setIsLoadingAll(false);
             }
         }
 
         fetchPostsAndComments();
-    }, []);
+    }, [postsData]);
 
     const handleLengthChange = useCallback((min: number, max: number) => {
         setFiltered(filterByLength(posts, min, max));
@@ -58,7 +56,7 @@ export default function PostsPage() {
 
             <PostLengthFilter onChange={handleLengthChange} />
 
-            <PostListWithLoading isLoading={isLoading} posts={filtered} />
+            <PostListWithLoading isLoading={isLoadingAll} posts={filtered} />
         </>
     )
 }
