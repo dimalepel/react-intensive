@@ -28,10 +28,20 @@ export const postsApi = createApi({
                 ? result.map(({ id }) => ({ type: 'Post' as const, id}))
                 : []
         }),
+        // Создаём новый пост
+        createPost: builder.mutation({
+            query: (newPost) => ({
+                url: 'posts',
+                method: 'POST',
+                body: newPost
+            }),
+            invalidatesTags: ['Post']
+        })
     }),
 })
 
 export const {
     useGetAllPostsQuery,
-    useGetPostsByUserIdQuery
+    useGetPostsByUserIdQuery,
+    useCreatePostMutation
 } = postsApi
